@@ -1,4 +1,5 @@
 import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
 
 // github에 올리지 않도록 .env에 값을 담고 ignore처리 하지만 실제 빌드를 하고 올릴때는 들어감
 const firebaseConfig = {
@@ -11,4 +12,6 @@ const firebaseConfig = {
   appId: process.env.REACT_APP_APP_ID,
 };
 
-export default initializeApp(firebaseConfig);
+initializeApp(firebaseConfig);
+
+export const authService = getAuth();
