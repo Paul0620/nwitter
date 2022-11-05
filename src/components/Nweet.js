@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { dbService } from "fBase";
+import { dbService, storageService } from "fBase";
 import { doc, deleteDoc, updateDoc } from "firebase/firestore";
+import { ref, deleteObject } from "firebase/storage";
 
 function Nweet({ nweetObj, isOwner }) {
   const [editing, setEditing] = useState(false);
@@ -16,6 +17,8 @@ function Nweet({ nweetObj, isOwner }) {
     if (ok) {
       // 삭제
       await deleteDoc(nweetDoc);
+      // storage에 이미지 삭제
+      await deleteObject(ref(storageService, nweetObj.attachmentUrl));
     }
   };
 
@@ -61,6 +64,14 @@ function Nweet({ nweetObj, isOwner }) {
       ) : (
         <>
           <h4>{nweetObj.text}</h4>
+          {nweetObj.attachmentUrl && (
+            <img
+              src={nweetObj.attachmentUrl}
+              width="50px"
+              height="50px"
+              alt=""
+            />
+          )}
           {isOwner && (
             <>
               <button onClick={onDeleteClick}>Delete Nweet</button>

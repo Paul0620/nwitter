@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
 
 // github에 올리지 않도록 .env에 값을 담고 ignore처리 하지만 실제 빌드를 하고 올릴때는 들어감
 const firebaseConfig = {
@@ -20,3 +21,6 @@ export const authService = getAuth();
 // 콜렉션 - documents의 그룹  ex) 비디오, 댓글, 개인 메시지
 
 export const dbService = getFirestore();
+
+// 파일을 저장할 버켓
+export const storageService = getStorage();
